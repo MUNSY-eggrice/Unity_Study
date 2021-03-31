@@ -13,8 +13,12 @@ public class PlayerFire : MonoBehaviour
 
     public GameObject bulletEffect;
 
-    //ParticleSystem ps;
+    ParticleSystem ps;
 
+    private void Start()
+    {
+        ps = bulletEffect.GetComponent<ParticleSystem>();
+    }
     private void Update()
     {
         if (Input.GetMouseButtonDown(1))
@@ -33,9 +37,18 @@ public class PlayerFire : MonoBehaviour
 
             RaycastHit hitInfo = new RaycastHit();
 
-            if(Physics.Raycast(ray, out hitInfo))
+            if(Physics.Raycast(ray, out hitInfo, Mathf.Infinity))
             {
+                print("raycast hit!");
+                Debug.Log(hitInfo.collider);
+                Debug.Log(hitInfo.point);
+                
 
+                Debug.DrawRay(ray.origin, ray.direction * 10f, Color.red, 5f);
+
+                // bulletEffect.transform.position = hitInfo.point;
+                bulletEffect.transform.position = new Vector3(1, 0, 1);
+                ps.Play();
             }
         }
     }
