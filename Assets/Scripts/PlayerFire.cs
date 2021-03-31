@@ -11,13 +11,15 @@ public class PlayerFire : MonoBehaviour
 
     public float throwPower = 15f;
 
-    public GameObject bulletEffect;
+    //public GameObject ps;
+    public GameObject ps;
+    
 
-    ParticleSystem ps;
-
-    private void Start()
+    private void Awake()
     {
-        ps = bulletEffect.GetComponent<ParticleSystem>();
+        Cursor.lockState = CursorLockMode.Locked;
+        
+       
     }
     private void Update()
     {
@@ -35,20 +37,16 @@ public class PlayerFire : MonoBehaviour
         {
             Ray ray = new Ray(Camera.main.transform.position, Camera.main.transform.forward);
 
-            RaycastHit hitInfo = new RaycastHit();
+            RaycastHit rayhit = new RaycastHit();
 
-            if(Physics.Raycast(ray, out hitInfo, Mathf.Infinity))
+            if(Physics.Raycast(ray, out rayhit,Mathf.Infinity))
             {
-                print("raycast hit!");
-                Debug.Log(hitInfo.collider);
-                Debug.Log(hitInfo.point);
-                
 
                 Debug.DrawRay(ray.origin, ray.direction * 10f, Color.red, 5f);
+                GameObject clone = Instantiate(ps, rayhit.point, Quaternion.LookRotation(rayhit.normal));
+                Destroy(clone, 2f);
+               
 
-                // bulletEffect.transform.position = hitInfo.point;
-                bulletEffect.transform.position = new Vector3(1, 0, 1);
-                ps.Play();
             }
         }
     }
