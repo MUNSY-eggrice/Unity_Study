@@ -13,6 +13,8 @@ public class PlayerMove : MonoBehaviour
 
     public float yVelocity = 0;
 
+    float hp;
+
     bool isJumping = false;
 
     CharacterController cc;
@@ -20,6 +22,11 @@ public class PlayerMove : MonoBehaviour
     private void Start()
     {
         cc = GetComponent<CharacterController>();
+    }
+
+    public void DamageAction(int damage)
+    {
+        hp -= damage;
     }
 
     void Update()

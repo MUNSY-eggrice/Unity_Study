@@ -41,8 +41,6 @@ public class PlayerFire : MonoBehaviour
 
             if(Physics.Raycast(ray, out rayhit,Mathf.Infinity))
             {
-
-                Debug.DrawRay(ray.origin, ray.direction * 10f, Color.red, 5f);
                 GameObject clone = Instantiate(ps, rayhit.point, Quaternion.LookRotation(rayhit.normal));
                 Destroy(clone, 2f);
                
